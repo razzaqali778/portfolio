@@ -1,49 +1,61 @@
-import React, { useState } from "react"
-import PortfolioList from "../PortfolioList/PortfolioList"
-import "./portfolio.scss"
-
+import { useEffect, useState } from "react";
+import PortfolioList from "../portfolioList/PortfolioList";
+import "./portfolio.scss";
 import {
   featuredPortfolio,
   webPortfolio,
   mobilePortfolio,
   designPortfolio,
   contentPortfolio,
-} from "../../data"
-import { useEffect } from "react"
+} from "../../data";
 
-const Portfolio = () => {
-  const [selected, setSelected] = useState("featured")
-
-  const [datas, setDatas] = useState("")
+export default function Portfolio() {
+  const [selected, setSelected] = useState("featured");
+  const [data, setData] = useState([]);
   const list = [
-    { id: "featured", tiltle: "Featured" },
-    { id: "web", tiltle: "Web App" },
-    { id: "mobile", tiltle: "Mobile" },
-    { id: "design", tiltle: "Design" },
-    { id: "content", tiltle: "Content" },
-  ]
+    {
+      id: "featured",
+      title: "Featured",
+    },
+    {
+      id: "web",
+      title: "Web App",
+    },
+    {
+      id: "mobile",
+      title: "Mobile App",
+    },
+    {
+      id: "design",
+      title: "Design",
+    },
+    {
+      id: "content",
+      title: "Content",
+    },
+  ];
 
   useEffect(() => {
     switch (selected) {
       case "featured":
-        setDatas(featuredPortfolio)
-        break
+        setData(featuredPortfolio);
+        break;
       case "web":
-        setDatas(webPortfolio)
-        break
+        setData(webPortfolio);
+        break;
       case "mobile":
-        setDatas(mobilePortfolio)
-        break
+        setData(mobilePortfolio);
+        break;
       case "design":
-        setDatas(designPortfolio)
-        break
+        setData(designPortfolio);
+        break;
       case "content":
-        setDatas(contentPortfolio)
-        break
+        setData(contentPortfolio);
+        break;
       default:
-        setDatas(featuredPortfolio)
+        setData(featuredPortfolio);
     }
-  }, [selected])
+  }, [selected]);
 
   return (
     <div className="portfolio" id="portfolio">
@@ -51,24 +63,24 @@ const Portfolio = () => {
       <ul>
         {list.map((item) => (
           <PortfolioList
-            key={item.id}
-            tiltle={item.tiltle}
+            title={item.title}
             active={selected === item.id}
             setSelected={setSelected}
             id={item.id}
           />
         ))}
       </ul>
-      {/* <div className="container">
-        {datas.map((d) => (
+      <div className="container">
+        {data.map((d) => (
           <div className="item">
-            <img src={d.img} alt="" />
-            <h3>{d.tiltle}</h3>
+            <img
+              src={d.img}
+              alt=""
+            />
+            <h3>{d.title}</h3>
           </div>
         ))}
-      </div> */}
+      </div>
     </div>
-  )
+  );
 }
-
-export default Portfolio
